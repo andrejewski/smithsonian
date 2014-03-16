@@ -8,8 +8,6 @@ defaults 	= require 'defaults'
 bodyParser 	= require 'body-parser'
 Metalsmith 	= require 'metalsmith'
 
-module.exports = Smithsonian
-
 Smithsonian = (dir) ->
 	return new Smithsonian dir if !(@ instanceof Smithsonian)
 	@metalsmith = Metalsmith dir
@@ -176,7 +174,9 @@ Smithsonian::server = ->
 			req.session = null
 			res.redirect index
 
-Smithsonian::listen = (port) ->
+Smithsonian::listen = ->
+	args = arguments
 	@server()
-	@build => @app.listen port
+	@build => @app.listen.apply @app, args
 
+module.exports = Smithsonian

@@ -5,7 +5,7 @@ Smithsonian = require './index'
 Smithsonian './test'
 	.options
 		appName: 'Custom Admin Title'
-		auth: false
+		auth: true
 		authKeys:
 			username: 'superuser'
 			password: 'password'
