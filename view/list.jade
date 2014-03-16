@@ -1,0 +1,36 @@
+//- list.jade
+
+extends ./layout
+
+block content
+	.s-module
+		.s-closure
+			.s-container
+				.s-ceiling
+					table.s-expand
+						tr
+							td
+								h1 #{appName}
+							td
+								a.btn.btn-bar.btn-normal(href=ns('/build')) Build
+
+	.s-content
+		.s-closure
+			.s-container
+				form#create-file.s-module(method='post', action=ns('/file'))
+					table.s-expand
+						tr
+							td
+								input.textbox(name='name', type='text', placeholder='Create a new file..')
+							td
+								input.btn.btn-bar.btn-success(type='submit', value='Create')
+				#readdir
+					if filenames.length
+						ul.directory
+							for filename in filenames
+								li.file
+									a(href=ns('/file/'+filename)) #{filename}
+					else
+						.no-files
+							p No files found.
+

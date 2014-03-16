@@ -1,0 +1,26 @@
+{
+  "name": "smithsonian",
+  "version": "0.0.0",
+  "description": "web interface for Metalsmith",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "lib/test.js"
+  },
+  "keywords": [
+    "web",
+    "interface",
+    "metalsmith",
+    "express",
+    "http"
+  ],
+  "author": "Chris Andrejewski",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-session": "^1.0.1",
+    "body-parser": "^1.0.0",
+    "metalsmith": "^0.4.0",
+    "express": "^3.4.8",
+    "defaults": "^1.0.0",
+    "jade": "^1.3.0"
+  }
+}

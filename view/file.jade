@@ -1,0 +1,27 @@
+//- file.jade
+
+extends ./layout
+
+block head
+	link(href='http://fonts.googleapis.com/css?family=Source+Code+Pro:400,700', rel='stylesheet', type='text/css')
+
+block content
+	.s-navbar
+		.s-closure
+			.s-ceiling
+			table.s-expand
+				tr
+					td
+						span
+							a(href=ns('/')) All Posts
+							| &#32;/&#32; 
+							b #{name}
+					td
+						form(method='post')
+							input.btn.btn-bar.btn-success(type='submit', value='Update')
+							textarea#file_contents.textbox(name='data') #{data}
+							input(type='hidden', name='action', value='update')
+					td
+						form(method='post')
+							input.btn.btn-bar.btn-normal(type='submit', value='Delete')
+							input(type='hidden', name='action', value='delete')

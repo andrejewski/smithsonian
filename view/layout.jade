@@ -1,0 +1,29 @@
+doctype html
+html
+	head
+		meta(charset='utf-8')
+		meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+		meta(name='viewport', content='width=device-width,initial-scale=1')
+		meta(http-equiv='Content-type', content='text/html;charset=UTF-8')
+
+		title 
+			block title
+				| #{appName}
+
+		block keywords
+			meta(name="keywords", content="smithsonian, metalsmith, nodejs, npm, file, build, remote")
+
+		block description
+			meta(name="description", content="Smithsonian is a web interface to Metalsmith, a static-site generator.")
+
+		link(href=ns('/favicon.ico'), rel='shortcut icon', type='image/x-icon')
+		link(rel='stylesheet', href=ns('/css/style.css'))
+
+		block head
+	body
+		#body
+			//- include ./header
+			#content
+				block content
+		include ./footer
+		block base
