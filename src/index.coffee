@@ -57,23 +57,24 @@ Smithsonian::options = (options) ->
 				"#{y}-#{m}-#{d} #{hr}:#{mn}:#{sc}"
 			"""
 			---
-			layout: post
 			title: "#{name}"
 			date: #{timestamp}
+			template: post.jade
 			---
 			"""
+		handleError: (error) -> throw error if error
 		namespace: ''
 		sessionKeys: ['undercover', 'renegade']
 		static: root+'/public'
 		views: root+'/view'
 		viewEngine: 'jade'
 		viewOptions: {layout: false, self: true}
-		
 	@
 
 Smithsonian::server = ->
 	options = @options()
 	ns = (x) -> options.namespace + x
+	{handleError} = options
 	autoBuild = (next = ->) -> 
 		return @build next if options.autoBuild
 		next null
@@ -122,7 +123,7 @@ Smithsonian::server = ->
 	@app.all index, (req, res, next) ->
 			# display directory
 			fs.readdir srcDir, (error, filenames) ->
-				throw error if error
+				handleError error
 				res.locals.filenames = filenames
 				res.render 'list'
 
@@ -132,7 +133,7 @@ Smithsonian::server = ->
 			filename = options.filename name, options.extension
 			filedata = options.filedata name, options.extension
 			fs.writeFile (dir filename), filedata, (error) ->
-				throw error if error
+				handleError error
 				res.redirect (ns "/file/#{filename}")
 				autoBuild()
 	
@@ -140,32 +141,44 @@ Smithsonian::server = ->
 			# display file
 			return next() if !name = req.params.name
 			fs.readFile (dir name), (error, data) ->
-				throw error if error
+				handleError error
 				res.render 'file', {name, data}
 	@app.post resource, (req, res, next) ->
 			return update req, res, next if req.body.action == 'update'
 			return remove req, res, next if req.body.action == 'delete'
 			next()
 
+	rename = (currName, nextName, next) ->
+			return next null, currName, false if !nextName || currName == nextName
+			fs.rename (dir currName), (dir nextName), (error) ->
+				handleError error
+				next error, nextName, true
 	update = (req, res, next) ->
-			return next() if !name = req.params.name
-			return next() if !data = req.body.data
-			fs.writeFile (dir name), data, (error) ->
-				throw error if error
-				res.render 'file', {name, data}
-				autoBuild()
+			return next() if !currName = req.params.name
+			{name, data} = req.body
+			return next() unless name && data
+			rename currName, name, (error, name, renamed) ->
+				fs.writeFile (dir name), data, (error) ->
+					handleError error
+					if renamed
+						res.redirect (ns "/file/#{name}")
+						cleanDest currName
+					else
+						res.render 'file', {name, data}
+					autoBuild()
 	remove = (req, res, next) ->
 			# delete file
 			return next() if !name = req.params.name
 			fs.unlink (dir name), (error) ->
-				throw error if error
+				handleError error
 				res.redirect index
 				autoBuild()
-			# clean /build
-			fs.unlink "#{destDir}/#{name}", (error) ->
-				# swallow error because `dest` may not have been built yet
-				# throw error if error
+			cleanDest name
 
+	cleanDest = (filename, next = ->) ->
+		fs.unlink "#{destDir}/#{filename}", (error) ->
+			# ignore error because `dest` may not have been built yet
+			next error
 
 	@app.get (ns '/build'), (req, res, next) => @build ->
 			res.redirect index

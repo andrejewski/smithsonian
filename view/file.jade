@@ -11,17 +11,25 @@ block content
 			.s-ceiling
 			table.s-expand
 				tr
-					td
+					//-td
 						span
-							a(href=ns('/')) All Posts
-							| &#32;/&#32; 
-							b #{name}
+							a(href=ns('/')) &larr; All Posts
 					td
 						form(method='post')
-							input.btn.btn-bar.btn-success(type='submit', value='Update')
-							textarea#file_contents.textbox(name='data') #{data}
-							input(type='hidden', name='action', value='update')
+							input#filename.textbox(type='text', name='name', value=name, placeholder='filename')
 					td
 						form(method='post')
 							input.btn.btn-bar.btn-normal(type='submit', value='Delete')
 							input(type='hidden', name='action', value='delete')
+					td
+						form(method='post')
+							input.btn.btn-bar.btn-success(type='submit', value='Update')
+							textarea#filedata.textbox(name='data') #{data}
+							input#realname(type='hidden', name='name', value=name)
+							input(type='hidden', name='action', value='update')
+	script(type='text/javascript', async).
+		var filename = document.getElementById('filename'),
+			realname = document.getElementById('realname');
+		filename.oninput = function(e) {
+			realname.value = filename.value;
+		}

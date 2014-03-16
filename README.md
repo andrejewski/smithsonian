@@ -64,6 +64,7 @@ Smithsonian is very configurable. Need authenication? See `auth` and `authKeys`.
 - `extension String` what file extension to use for new files
 - `filename Function` generates a filename, given the user supplied name and the extension
 - `filedata Function` generates the default file contents given, given the user supplied name and the extension
+- `handleError Function` handles any error in Smithsonian, mostly filesystem errors.
 - `namespace String` if set to, say, "/admin" would serve everything Smithsonian through `localhost:8080/admin/`
 - `sessionKeys Array[String]` are used in initializing Express's cookie-session
 - `static String` is the directory serving the favicon.ico and CSS files
@@ -108,6 +109,7 @@ Here are all of the override-able defaults.
         })();
         return "---\nlayout: post\ntitle: \"" + name + "\"\ndate: " + timestamp + "\n---";
       },
+      handleError: function(error) {},
       namespace: '',
       sessionKeys: ['undercover', 'renegade'],
       "static": path.normalize(__dirname + '/..') + '/public',
