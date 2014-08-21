@@ -2,34 +2,34 @@
 
 extends ./layout
 
-block head
-	link(href='http://fonts.googleapis.com/css?family=Source+Code+Pro:400,700', rel='stylesheet', type='text/css')
+//- block head
+//- 	link(href='http://fonts.googleapis.com/css?family=Source+Code+Pro:400,700', rel='stylesheet', type='text/css')
 
-block content
-	.s-navbar
-		.s-closure
-			.s-ceiling
-			table.s-expand
-				tr
-					//-td
-						span
-							a(href=ns('/')) &larr; All Posts
-					td
-						form(method='post')
-							input#filename.textbox(type='text', name='name', value=name, placeholder='filename')
-					td
-						form(method='post')
-							input.btn.btn-bar.btn-normal(type='submit', value='Delete')
-							input(type='hidden', name='action', value='delete')
-					td
-						form(method='post')
-							input.btn.btn-bar.btn-success(type='submit', value='Update')
-							textarea#filedata.textbox(name='data') #{data}
-							input#realname(type='hidden', name='name', value=name)
-							input(type='hidden', name='action', value='update')
-	script(type='text/javascript', async).
-		var filename = document.getElementById('filename'),
-			realname = document.getElementById('realname');
-		filename.oninput = function(e) {
-			realname.value = filename.value;
-		}
+block body
+	.s-application
+		section.s-section
+			header.s-header
+				h1 
+					b #{s.name}
+					span  / 
+					b #{basename}
+
+		form(method='post', action=link('file/'+basename))
+			input(type='hidden', name='action', value='update')
+			section.s-file-rename.s-section
+				label 
+					span File name
+					input.textbox(name='filename', type='text', placeholder='Awesome Post Title Part 2', value=basename)
+
+			section.s-file-update.s-section
+				label 
+					span File contents
+					- var breaks = content.split('\n').length;
+					textarea.textbox(name='content', rows=breaks, placeholder='Awesome Post Title Part 2')= content 
+				input.btn.btn-primary(type='submit', value='Save Changes')
+
+		section.s-section
+			form(method='post')
+				input.btn.btn-danger(type='submit', value='Permanently Delete this File')
+				input(type='hidden', name='action', value='delete')
+

@@ -2,35 +2,42 @@
 
 extends ./layout
 
-block content
-	.s-module
-		.s-closure
-			.s-container
-				.s-ceiling
-					table.s-expand
-						tr
-							td
-								h1 #{appName}
-							td
-								a.btn.btn-bar.btn-normal(href=ns('/build')) Build
+block body
+	.s-application
+		section.s-section
+			header.s-header
+				h1 
+					b #{s.name}
+					span  /
 
-	.s-content
-		.s-closure
-			.s-container
-				form#create-file.s-module(method='post', action=ns('/file'))
-					table.s-expand
-						tr
-							td
-								input.textbox(name='name', type='text', placeholder='Create a new file..')
-							td
-								input.btn.btn-bar.btn-success(type='submit', value='Create')
-				#readdir
-					if filenames.length
-						ul.directory
-							for filename in filenames
-								li.file
-									a(href=ns('/file/'+filename)) #{filename}
-					else
-						.no-files
-							p No files found.
+		section.s-file-create.s-section
+			form(method='post', action=link('file'))
+				label 
+					span Create a new Post
+					input.textbox(name='title', type='text', placeholder='Awesome Post Title Part 2')
+				input.s-hidden(type='submit', value='Create')
 
+		section.s-section
+			if filenames.length
+				ul.s-directory
+					for filename in filenames
+						li.s-directory-file
+							a(href=link('file/'+filename)) #{filename}
+			else
+				.s-directory.s-directory-empty
+					p No files found.
+
+		footer.s-footer
+			.s-section
+				h4 
+					a(href='https://github.com/andrejewski/smithsonian') Smithsonian
+				p 
+					| by  
+					a(href='http://chrisandrejewski.com') Chris Andrejewski
+			.s-logo
+				.s-logo-dome
+				.s-logo-ceiling
+				.s-logo-pillars
+					for x,i in Array(5)
+						.s-logo-pillar
+				.s-logo-base

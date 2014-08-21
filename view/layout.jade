@@ -8,7 +8,7 @@ html
 
 		title 
 			block title
-				| #{appName}
+				| #{s.name +"/"+ (basename||"")}
 
 		block keywords
 			meta(name="keywords", content="smithsonian, metalsmith, nodejs, npm, file, build, remote")
@@ -16,14 +16,9 @@ html
 		block description
 			meta(name="description", content="Smithsonian is a web interface to Metalsmith, a static-site generator.")
 
-		link(href=ns('/favicon.ico'), rel='shortcut icon', type='image/x-icon')
-		link(rel='stylesheet', href=ns('/css/style.css'))
+		link(rel='stylesheet', href=link('css/smithsonian.css'))
 
 		block head
 	body
-		#body
-			//- include ./header
-			#content
-				block content
-		include ./footer
+		block body
 		block base

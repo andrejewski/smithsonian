@@ -1,4 +1,188 @@
-/* style.css */
+
+body {
+	margin: 0px;
+	background-color: #eef4ee;
+}
+
+.s-application {
+	max-width: 480px;
+	margin: 0px auto;
+	background-color: #fff;
+	border-top: 4px solid #32ad64;
+}
+
+.s-section {
+	padding: 20px;
+}
+
+.s-header {
+	padding: 10px 0px;
+	border-bottom: 1px solid #ccc;
+}
+
+.s-header h1 {
+	margin: 0px;
+	color: #132;
+	font-size: 20px;
+	font-weight: normal;
+}
+
+.s-file-create {
+	/*background-color: #eee;*/
+}
+
+.s-section label span {
+	display: block;
+	color: #aaa;
+	font-size: 12px;
+}
+
+.textbox {
+	display: block;
+	width: 100%;
+	padding: 5px 0px;
+	margin: 0px;
+	border: none;
+	background-color: transparent;
+	outline: none;
+	font-family: inherit;
+	font-size: 16px;
+	border-bottom: 1px solid #ddd;
+}
+
+textarea.textbox {
+	resize: vertical;
+}
+
+.textbox:focus {
+	border-bottom-color: #32ad64;
+}
+
+.btn {
+	padding: 5px 0px;
+	margin: 5px 10px 5px 0px;
+	border: none;
+	font-size: 16px;
+	font-family: inherit;
+	background-color: transparent;
+	outline: none;
+	cursor: pointer;
+	border-bottom: 1px solid #eee;
+}
+
+.btn-primary {
+	color: #08f;
+}
+
+.btn-primary:hover {
+	color: #08f;
+	border-bottom-color: #08f;
+}
+
+.btn-danger {
+	color: #aaa;
+}
+
+.btn-danger:hover {
+	color: #e64;
+	border-bottom-color: #e64;
+}
+
+.btn-group {
+	text-align: right;
+}
+
+
+.s-hidden {display: none;}
+
+.s-directory {
+	padding: 0px;
+	margin: 0px;
+	list-style-type: none;
+}
+
+.s-directory-empty {
+	padding: 40px;
+}
+
+.s-directory-file {
+	padding: 10px 0px;
+	border-bottom: 1px solid #f4f4f4;
+}
+
+.s-directory-file a {
+	color: #243;
+	text-decoration: none;
+}
+
+.s-directory-file a:hover {
+	text-decoration: underline;
+}
+
+.s-footer {
+	position: relative;
+}
+
+.s-footer h4, .s-footer p {
+	margin: 0px;
+}
+
+.s-footer h4 {
+	color: #32ad64;
+
+}
+
+.s-footer p {
+	color: #777;
+	font-size: 14px;
+}
+
+.s-footer a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.s-footer a:hover {
+	text-decoration: underline;
+}
+
+.s-logo {
+	position: absolute; 
+	right: 20px;
+	bottom: 0px;
+	width: 100px;
+	opacity: 0.2;
+}
+
+.s-logo-dome {
+	display: block;
+	height: 50px;
+	background-color: #32ad64;
+	border-top-right-radius: 100%;
+	border-top-left-radius: 100%;
+}
+
+.s-logo-base {
+	display: block;
+	height: 5px;
+	background-color: #32ad64;
+}
+
+.s-logo-pillars {
+	text-align: center;
+	font-size: 0px;
+}
+
+.s-logo-pillar {
+	display: inline-block;
+	width: 10px;
+	height: 30px;
+	margin: 0px 5px;
+	background-color: #32ad64;
+}
+.s-logo-base {}
+
+/*/* style.css 
 
 html, body {background-color: #f8f8f8; margin: 0px;}
 
@@ -39,7 +223,7 @@ hr {border: none; border-top: 3px solid #eee; margin: 20px 0px;}
 
 .btn {display: inline-block; text-decoration: none !important; border: 1px solid transparent; padding: 10px; margin: 0px; font-size: 1em; border-radius: 3px; cursor: pointer; outline: none; -webkit-appearance: none;}
 .btn-bar {display: block; width: 100%; text-align: center;}
-/* .btn-success {color: #32ad64; border: 1px solid #32ad64;} */
+/* .btn-success {color: #32ad64; border: 1px solid #32ad64;} 
 .btn-success {background-color: #32ad64; color: #fff; border-color: #249c48; border-top-color: #209438; box-shadow: inset 0 1px 2px rgba(255,255,255,0.1);}
 .btn-success:hover {background-color: #28a960; border-color: #209438; border-top-color: #189036;}
 .btn-success:active {background-color: #249c48;}
@@ -56,9 +240,10 @@ hr {border: none; border-top: 3px solid #eee; margin: 20px 0px;}
 .textbox:focus {border-color: #08f; box-shadow: 0 0 3px rgba(0,128,255,0.3);}
 textarea.textbox {resize: none;}
 
-/* Footer */
+/* Footer 
 #footer {font-size: 0.9em; padding: 1em 0px;}
 .footer-links {color: #789; padding: 0em 0;}
 .footer-copyright {float: right; opacity: 0.9;}
 
 
+*/
