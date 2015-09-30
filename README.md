@@ -56,7 +56,7 @@ express()
 
 Smithsonian is really just a basic file explorer that only works with a Metalsmith source directory. It does not serve the built files; use [http-server](https://github.com/nodeapps/http-server) for that. Smithsonian is really useful for remote deploys and as an administration interface. Smithsonian is like an extremely minimal CMS, but for Metalsmith.
 
-Say you have Metalsmith building static content behind Nginx. Expose Smithsonian (preferably backed by [forever](https://github.com/nodejitsu/forever)) in the Nginx config and you now have an easily accessible adminstration tool to create, edit, and delete source files. No need to build locally and deploy with git or any other manual tool.
+Say you have Metalsmith building static content behind Nginx. Expose Smithsonian (preferably backed by [forever](https://github.com/nodejitsu/forever)) in the Nginx config and you now have an easily accessible administration tool to create, edit, and delete source files. No need to build locally and deploy with git or any other manual tool.
 
 Building a simple blog for a company/client? As long as they can handle YAML being at the top of the file, Smithsonian is good enough to hand off to clients.
 
