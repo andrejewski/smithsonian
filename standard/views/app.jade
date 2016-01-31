@@ -1,0 +1,20 @@
+
+extends ./layout
+
+block head
+  // link(rel='stylesheet', href=link('trix.css'))
+  link(rel='stylesheet', href=link('simplemde.min.css'))
+
+block body
+  #application(data-base-url=baseUrl, data-api-url=apiUrl)
+  #modal.hidden
+    .modal-container
+    .modal-content
+
+  script(src=link('jquery-1.12.0.js'))
+  script(src=link('async.js'))
+  // script(src=link('trix.js'))
+  script(src=link('simplemde.min.js'))
+  script(src=link('superagent.js'))
+  script(src=link('smithsonian.js'))
+
