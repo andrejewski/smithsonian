@@ -1,6 +1,6 @@
 {
   "name": "smithsonian",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "web interface for Metalsmith",
   "main": "index.js",
   "scripts": {
@@ -20,14 +20,13 @@
     "body-parser": "^1.14.2",
     "express": "^4.13.4",
     "jade": "^1.11.0",
-    "metalsmith": "^2.1.0"
+    "metalsmith": "^2.1.0",
+    "superagent": "^1.7.2"
   },
   "directories": {
     "test": "test"
   },
-  "devDependencies": {
-    "superagent": "^1.7.2"
-  },
+  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/andrejewski/smithsonian.git"

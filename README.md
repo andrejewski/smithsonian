@@ -28,7 +28,7 @@ Note: Smithsonian calls `build()` internally when `listen()` is called.
 
 The third version of Smithsonian brings huge underlying changes with only minor developer facing changes. The most important change is that Smithsonian's file access API is now completely decoupled from the user interface. This means that a custom interface can be used instead. This eliminates the need for the old configuration options. And although now decoupled, the default user interface Standard has been completely visually overhauled and has a lot more features.
 
-Moving from v2 to v3 is adding the web interface to your Express application, like how the old Smithsonian router was added using `express.use()`. Note: this is only necessary if Smithsonian is nested inside another application.
+To upgrade from v2 to v3, add the web interface to your Express application, like how the Smithsonian API router is added using `express.use()`. Note: this is only necessary if Smithsonian is nested inside another application.
 
 ## Installation
 
@@ -73,15 +73,13 @@ Smithsonian is really just a basic file explorer that only works with a Metalsmi
 
 Say you have Metalsmith building static content behind Nginx. Expose Smithsonian (preferably backed by [forever](https://github.com/nodejitsu/forever)) in the Nginx config and you now have an easily accessible administration tool to create, edit, and delete source files. No need to build locally and deploy with git or any other manual tool.
 
-Building a simple blog for a company/client? As long as they can handle YAML being at the top of the file, Smithsonian is good enough to hand off to clients.
+Building a simple blog for a company/client? If they can manage plain text, Smithsonian is good enough to hand off to clients.
 
 ## Methods
 
 Smithsonian only exposes the plugin system of Metalsmith, which are only `#use()` and `#build()`. All other methods calls outside of Metalsmith plugins will need to use `Smithsonian.metalsmith` which is Smithsonian's Metalsmith instance.
 
 Smithsonian also exposes `#listen()` which will start the web server that serves the interface and `#router()` which returns the Express router middleware.
-
-For error handling, Smithsonian has an overridable `#error()` method that will receive any and all errors that come from Smithsonian. This is great for debugging.
 
 ## Smithsonian Standard
 
