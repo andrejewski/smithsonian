@@ -11,7 +11,10 @@ module.exports = function standard(apiPath) {
 
   function render(res, template, locals, next) {
     var file = path.join(__dirname, 'views', template+'.jade');
-    locals.baseUrl = res.req.baseUrl;
+    var basePath = res.req.baseUrl;
+    if(basePath.slice(-1) !== '/') basePath += '/';
+    if(apiPath.slice(-1) !== '/') apiPath += '/';
+    locals.baseUrl = basePath;
     locals.apiUrl = apiPath;
     locals.link = function(href) {
       if(href.charAt(0) == '/') {

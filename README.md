@@ -24,6 +24,12 @@ Smithsonian(__dirname)
 
 Note: Smithsonian calls `build()` internally when `listen()` is called.
 
+## New in Version 3
+
+The third version of Smithsonian brings huge underlying changes with only minor developer facing changes. The most important change is that Smithsonian's file access API is now completely decoupled from the user interface. This means that a custom interface can be used instead. This eliminates the need for the old configuration options. And although now decoupled, the default user interface Standard has been completely visually overhauled and has a lot more features.
+
+Moving from v2 to v3 is adding the web interface to your Express application, like how the old Smithsonian router was added using `express.use()`. Note: this is only necessary if Smithsonian is nested inside another application.
+
 ## Installation
 
 ```bash
@@ -52,6 +58,15 @@ express()
     .listen(3000);
 ```
 
+### Smithsonian Standard
+
+```javascript
+express()
+  .use('/smithsonian', require('smithsonian/standard')(API_URL))
+  .listen(3000);
+// where API_URL is wherever the Smithsonian router is mounted.
+```
+
 ## Use Cases
 
 Smithsonian is really just a basic file explorer that only works with a Metalsmith source directory. It does not serve the built files; use [http-server](https://github.com/nodeapps/http-server) for that. Smithsonian is really useful for remote deploys and as an administration interface. Smithsonian is like an extremely minimal CMS, but for Metalsmith.
@@ -68,21 +83,12 @@ Smithsonian also exposes `#listen()` which will start the web server that serves
 
 For error handling, Smithsonian has an overridable `#error()` method that will receive any and all errors that come from Smithsonian. This is great for debugging.
 
-## Screenshots
+## Smithsonian Standard
 
-![List View](https://raw.github.com/andrejewski/smithsonian/master/screenshots/list-view.jpeg)
-![File View](https://raw.github.com/andrejewski/smithsonian/master/screenshots/file-view.jpeg)
+Smithsonian comes with a default web interface called Standard. If a custom design is needed, Smithsonian is completely decoupled from the underlying API.
 
-## Configuration
-
-Smithsonian is configurable.
-
-- `name String` displays in the navbar. Good for custom branding like project or company names
-- `hotBuild Boolean` whether or not to build on every file create, update, or delete
-- `publicPath String` is the directory serving the CSS files
-- `viewPath String` maps to Express's `#set 'views'`, is the directory for template files.
-- `viewEngine String` maps to Express's `#set 'view engine'`
-- `viewOptions Object` maps to Express's `#set 'view options'`
+![List View](https://raw.github.com/andrejewski/smithsonian/master/screenshots/list-view.png)
+![File View](https://raw.github.com/andrejewski/smithsonian/master/screenshots/file-view.png)
 
 ## Fin
 

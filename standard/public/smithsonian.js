@@ -12,13 +12,6 @@ function state() {
   return {path: path};
 }
 
-function fileTree(path, next) {
-  request.get($$apiUrl + '/tree' + path, function(error, res) {
-    if(error) return next(error);
-    next(null, res.body.tree);
-  });
-}
-
 function htmlFromTree(tree) {
   return tree.kind === 'folder'
     ? [
@@ -35,7 +28,7 @@ function htmlFromTree(tree) {
 
 function getState(next) {
   var path = window.location.pathname.slice($$baseUrl.length);
-  request.get($$apiUrl+'/file'+path, function(error, res) {
+  request.get($$apiUrl+'file/'+path, function(error, res) {
     if(!error) {
       var file = {
         path: path,
@@ -44,7 +37,7 @@ function getState(next) {
       return next(null, {kind: 'file', file: file});
     }
 
-    request.get($$apiUrl+'/tree/', function(error, res) {
+    request.get($$apiUrl+'tree/', function(error, res) {
       if(error) return next(error);
       next(error, {kind: 'tree', tree: res.body.tree, path: path});
     });
@@ -65,7 +58,7 @@ function fileView(state) {
     "<div class='file-view'>", 
       "<header>",
         "<div class='file-location'>", 
-          "<a href='"+parentPath+"'>"+hamburger()+"</a>",
+          "<a href='"+$$baseUrl+"'>"+hamburger()+"</a>",
           "<div class='file-path'>",
             "<div class='file-name x-rename-open'>",
               "<h1>"+fileName+"</h1>",
@@ -104,7 +97,7 @@ $($application).on('click', '.x-save', function(e) {
   var $saveBtn = $(e.target);
   $saveBtn.attr('disabled', true);
   request
-    .put($$apiUrl + '/file' + state().path)
+    .put($$apiUrl + 'file/' + state().path)
     .send({content: content})
     .end(function(error, res) {
       if(error) return flashError(error);
@@ -116,10 +109,10 @@ $($application).on('click', '.x-delete', function(e) {
   $deleteBtn = $(e.target);
   $deleteBtn.attr('disabled', true);
   var path = state().path;
-  request.del($$apiUrl + '/file' + path, function(error, res) {
+  request.del($$apiUrl + 'file/' + path, function(error, res) {
     if(error) return flashError(error);
     $deleteBtn.attr('disabled', false);
-    window.location = $$baseUrl + (path.split('/').slice(0, -1).join('/') || '/');
+    window.location = $$baseUrl;
   });
 });
 
@@ -127,7 +120,7 @@ $($application).on('click', '.x-move', function(e) {
   var newPath = $('.move-path .textbox').val();
   var oldPath = state().path;
   request
-    .put($$apiUrl + '/file' + oldPath)
+    .put($$apiUrl + 'file/' + oldPath)
     .send({rename: true, filepath: newPath})
     .end(function(error, res) {
       if(error) return flashError(error);
@@ -140,7 +133,7 @@ function treeView(state) {
     "<div class='tree-view'>",
       "<header>",
         "<div class='tree-default'>",
-          "<span class='build-status'></span>",
+          "<span class='x-happy-day build-status'></span>",
           "<div class='tree-actions'>",
             "<button class='x-build button button-success'>Build</button>",
           "</div>",
@@ -149,7 +142,7 @@ function treeView(state) {
           "<input type='text' class='x-path textbox'/>",
           "<button class='x-cancel button button-default'>Cancel</button>",
           "<button class='x-folder-delete button button-danger'>Delete</button>",
-          "<button class='x-move button button-success'>Move folder</button>",
+          "<button class='x-folder-move button button-success'>Move folder</button>",
         "</form>",
         "<form class='tree-create hidden'>",
           "<input type='text' class='x-path textbox' placeholder='Create a file or folder, folders end with a slash \"/\"'/>",
@@ -177,7 +170,7 @@ $($application).on('click', '.x-dir-rename-toggle-open', function(e) {
 
 $($application).on('submit', '.tree-move', function(e) {
   e.preventDefault();
-  $('.x-move', '.tree-move').click();
+  $('.x-folder-move', '.tree-move').click();
 });
 
 $($application).on('click', '.x-create-toggle-open', function(e) {
@@ -203,10 +196,24 @@ $($application).on('submit', '.tree-create', function(e) {
 
 $($application).on('click', '.x-folder-delete', function(e) {
   var filepath = $('.x-path').attr('data-initial');
-  request.del($$apiUrl + '/folder/' + filepath, function(error, res) {
+  request.del($$apiUrl + 'folder/' + filepath, function(error, res) {
     if(error) return flashError(error);
     window.location.reload();
   });
+});
+
+$($application).on('click', '.x-folder-move', function(e) {
+  if(!e.which) return;
+  var $textbox = $('.tree-move .textbox');
+  var newPath = $textbox.val();
+  var oldPath = $textbox.attr('data-initial');
+  request
+    .put($$apiUrl + 'folder/' + oldPath)
+    .send({rename: true, filepath: newPath})
+    .end(function(error, res) {
+      if(error) return flashError(error);
+      window.location = $$baseUrl;
+    });
 });
 
 $($application).on('click', '.x-create', function(e) {
@@ -216,8 +223,13 @@ $($application).on('click', '.x-create', function(e) {
     $('.tree-create').addClass('hidden');
     return;
   }
+  
+  if(filepath.charAt(0) === '/') {
+    filepath = filepath.slice(1);
+  }
+
   var isDirectory = filepath.slice(-1) === '/';
-  var route = isDirectory ? '/folder/' : '/file/';
+  var route = isDirectory ? 'folder/' : 'file/';
   request
     .post($$apiUrl + route + filepath)
     .send({content: ''})
@@ -229,7 +241,7 @@ $($application).on('click', '.x-create', function(e) {
 });
 
 $($application).on('click', '.x-build', function(e) {
-  request.post($$apiUrl + '/build', function(error, res) {
+  request.post($$apiUrl + 'build', function(error, res) {
     if(error) return flashError(error);
     updateLastBuilt();
   });
@@ -260,6 +272,7 @@ function initialize() {
         ? fileView
         : treeView;
       $application.innerHTML = view(state);
+      happyDay([$('.x-happy-day')[0]]);
     }
   });
 }
