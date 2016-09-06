@@ -1,38 +1,40 @@
 {
   "name": "smithsonian",
-  "version": "3.0.0",
   "description": "web interface for Metalsmith",
-  "main": "index.js",
-  "scripts": {
-    "test": "node test/index.js"
-  },
-  "keywords": [
-    "web",
-    "interface",
-    "metalsmith",
-    "express",
-    "http"
-  ],
+  "version": "3.0.1",
   "author": "Chris Andrejewski",
-  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andrejewski/smithsonian/issues"
+  },
   "dependencies": {
     "async": "^1.5.2",
     "body-parser": "^1.14.2",
     "express": "^4.13.4",
     "jade": "^1.11.0",
     "metalsmith": "^2.1.0",
+    "mkdirp": "^0.5.1",
+    "serve-static": "^1.11.1",
     "superagent": "^1.7.2"
   },
+  "devDependencies": {},
   "directories": {
     "test": "test"
   },
-  "devDependencies": {},
+  "homepage": "https://github.com/andrejewski/smithsonian",
+  "keywords": [
+    "express",
+    "http",
+    "interface",
+    "metalsmith",
+    "web"
+  ],
+  "license": "ISC",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/andrejewski/smithsonian.git"
   },
-  "bugs": {
-    "url": "https://github.com/andrejewski/smithsonian/issues"
-  },
-  "homepage": "https://github.com/andrejewski/smithsonian"
+  "scripts": {
+    "test": "node test/index.js"
+  }
 }
