@@ -7,14 +7,14 @@
     "url": "https://github.com/andrejewski/smithsonian/issues"
   },
   "dependencies": {
-    "async": "^1.5.2",
+    "async": "^2.3.0",
     "body-parser": "^1.14.2",
     "express": "^4.13.4",
     "jade": "^1.11.0",
     "metalsmith": "^2.1.0",
     "mkdirp": "^0.5.1",
     "serve-static": "^1.11.1",
-    "superagent": "^1.7.2"
+    "superagent": "^3.5.2"
   },
   "devDependencies": {},
   "directories": {
