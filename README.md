@@ -1,6 +1,8 @@
 Smithsonian
 ===========
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/andrejewski/smithsonian.svg)](https://greenkeeper.io/)
+
 Smithsonian is a web interface for [Metalsmith](https://github.com/segmentio/metalsmith). If you are already using Metalsmith, adopting Smithsonian could not be easier. Smithsonian extends Metalsmith so the exact same plugin/middleware system works, just swap out Metalsmith for Smithsonian.
 
 ```javascript
